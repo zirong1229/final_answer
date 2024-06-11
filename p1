@@ -1,0 +1,61 @@
+#define P // 預處理器指令，定義一個名為 P 的標誌
+#ifdef P1 // 如果 P1 被定義，則編譯以下程式碼塊
+
+#include <iostream> // 包含輸入輸出流的標準庫
+#include <cstdlib> // 包含標準庫函數
+#include <iomanip> // 包含控制輸出格式的標準庫
+using namespace std; // 使用標準命名空間
+
+// CVec2 類別
+class CVec2 {
+private:
+    float x, y; // 私有成員變數，分別表示向量的 x 和 y 座標
+public:
+    // 建構元，接受兩個浮點數參數，預設值為 0.0f
+    CVec2(float a = 0.0f, float b = 0.0f) {
+        x = a;
+        y = b;
+    }
+
+    // + 運算子重載，執行兩個向量的相加，回傳值為 CVec2 物件
+    CVec2 operator+(const CVec2 &a) const {
+        return CVec2(this->x + a.x, this->y + a.y); // 返回相加結果的新向量
+    }
+
+    // - 運算子重載，執行兩個向量的相減，回傳值為 CVec2 物件
+    CVec2 operator-(const CVec2 &a) const {
+        return CVec2(this->x - a.x, this->y - a.y); // 返回相減結果的新向量
+    }
+
+    // = 運算子重載，執行向量內容的設定，回傳值為 CVec2 的參照物件
+    CVec2& operator=(const CVec2 &a) {
+        if (this != &a) { // 防止自我賦值
+            this->x = a.x;
+            this->y = a.y;
+        }
+        return *this; // 返回當前物件的參照
+    }
+
+    // 顯示向量的值
+    void show() const {
+        cout << "(" << x << "," << y << ")"; // 格式化輸出 x 和 y 的值
+    }
+};
+
+// 主程式入口
+int main(void) {
+    CVec2 v1, v2(3,1), v3(1,1); // 宣告三個 CVec2 物件
+    cout << "v1 = "; v1.show(); cout << endl; // 顯示 v1 的值
+    cout << "v2 = "; v2.show(); cout << endl; // 顯示 v2 的值
+    cout << "v3 = "; v3.show(); cout << endl; // 顯示 v3 的值
+    cout << "v1 - v3 = "; (v1-v3).show(); cout << endl; // 顯示 v1 減 v3 的結果
+    cout << "v2 + v3 = "; (v2+v3).show(); cout << endl; // 顯示 v2 加 v3 的結果
+    v1 = (v2 - v3); // 設定 v1 為 v2 減 v3 的結果
+    cout << "v1 = v2 - v3 = "; v1.show(); cout << endl; // 顯示 v1 的值
+    v3 = (v2 + v1); // 設定 v3 為 v2 加 v1 的結果
+    cout << "v3 = v2 + v1 = "; v3.show(); cout << endl; // 顯示 v3 的值
+    system("pause"); // 暫停程式，等待使用者按任意鍵
+    return(0); // 程式正常結束
+}
+
+#endif // 結束條件編譯
